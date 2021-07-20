@@ -36,7 +36,6 @@ class ProtoDecoder:
             if layer_type == Layer.LayerType.FLATTEN:
                 flatten_layer = encoded_layers.flattenLayers.pop(0)
                 shape = flatten_layer.shapes.pop(0).shape
-                print(f"FLATTEN LAYER, SHAPE: {shape}")
                 decoded_layer = tf.keras.layers.Flatten(input_shape=tuple(shape))
 
             elif layer_type == Layer.LayerType.DENSE:
@@ -44,14 +43,11 @@ class ProtoDecoder:
                 units = dense_layer.units.pop(0)
                 activation = dense_layer.activations.pop(0)
                 names = dense_layer.names.pop(0)
-                print(f"DENSE LAYER: UNITS: {units}\nACTIVATION: {activation}\nNAMES: {names}")
-                print(units, activation, names)
                 decoded_layer = tf.keras.layers.Dense(units, activation=activation, name=names)
 
             elif layer_type == Layer.LayerType.DROPOUT:
                 dropout_layer = encoded_layers.dropoutLayers.pop(0)
                 rate = dropout_layer.ratio.pop(0)
-                print(f"DROPOUT LAYER: RATE {rate}")
                 decoded_layer = tf.keras.layers.Dropout(rate)
                 
             else:
