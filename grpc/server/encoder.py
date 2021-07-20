@@ -11,12 +11,10 @@ class ProtoEncoder:
         self, 
         model: tf.keras.models.Sequential,
         optim: str,
-        loss: function,
         metrics: list
         ) -> None:
         self.model = model
         self.optim = optim
-        self.loss = loss
         self.metrics = metrics
 
     def encode_layer(self, layer, layer_manager) -> Layer:
