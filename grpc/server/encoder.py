@@ -22,7 +22,7 @@ class ProtoEncoder:
         self.loss = loss
         self.metrics = metrics
 
-    def encode_layer(self, layer, layer_manager):
+    def encode_layer(self, layer, layer_manager) -> Layer:
         """
         Function for encoding an individual layer within the Tensorflow Keras model.
 
@@ -75,4 +75,13 @@ class ProtoEncoder:
             encoded_layer = self.encode_layer(layer, layers)
             layers.layers.append(encoded_layer)
         return layers.SerializeToString()
+    
+    def encode_weights(self) -> bytes:
+        """
+        A function that encodes the weights of the model into a protobuf format.
+
+        Returns:
+            bytes: Returns a bytestring that encodes the model weights
+        """
+        pass
 
