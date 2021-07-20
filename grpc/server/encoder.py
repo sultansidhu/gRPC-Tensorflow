@@ -41,7 +41,6 @@ class ProtoEncoder:
             flatten_layer = layer_manager.FlattenLayer()
             shape = layer_manager.Shape()
             layer_shape = list(layer.input_shape)
-            print(f"LAYER shape is {layer_shape}")
             shape.shape.extend(layer_shape[1:]) # todo: temporary hack
             flatten_layer.shapes.append(shape)
             layer_manager.flattenLayers.append(flatten_layer)
@@ -49,7 +48,6 @@ class ProtoEncoder:
         elif isinstance(layer, tf.keras.layers.Dense):
             layer_type.type.append(Layer.LayerType.DENSE)
             dense_layer = layer_manager.DenseLayer()
-            print(layer.units, "DENSE")
             dense_layer.units.append(layer.units)
             activation = self.get_activation(layer)
             dense_layer.activations.append(activation)
@@ -64,7 +62,6 @@ class ProtoEncoder:
         elif isinstance(layer, tf.keras.layers.Dropout):
             layer_type.type.append(Layer.LayerType.DROPOUT)
             dropout_layer = layer_manager.DropoutLayer()
-            print(layer.rate, "DROPOUT")
             dropout_layer.ratio.append(layer.rate)
             layer_manager.dropoutLayers.append(dropout_layer)
         
