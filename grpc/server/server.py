@@ -22,7 +22,7 @@ class ModelEncodeService(pb2_grpc.ModelEncodeServicer):
 
     def __init__(self, model, *args, **kwargs):
         self.model = model
-        self.encoder = ProtoEncoder(self.model, "adam", None, "accuracy")
+        self.encoder = ProtoEncoder(self.model, "adam", "accuracy")
 
     def GetEncodedModel(self, request, context):
         start_time = time.time()
