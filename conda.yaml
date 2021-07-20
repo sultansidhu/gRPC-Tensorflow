@@ -1,0 +1,8 @@
+name: tf-grpc
+channels:
+  - defaults
+dependencies:
+  - pip:
+    - tensorflow
+  - python=3.8.10
+prefix: /Users/sultansidhu/opt/miniconda3/envs/tf-grpc
