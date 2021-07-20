@@ -38,13 +38,8 @@ class ModelGenerator:
                 tf.keras.layers.Dropout(0.2),
                 tf.keras.layers.Dense(10)
             ]
-        if self.type == "mnist":
-            model = tf.keras.models.Sequential(layer_list)
-        if model:
-            return model
-        else:
-            print("Error: Model type is not supported!")
-            exit(1)
+        model = tf.keras.models.Sequential(layer_list)
+        return model
         
 
 # model = ModelGenerator().get_model()
