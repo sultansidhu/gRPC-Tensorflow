@@ -35,6 +35,7 @@ class ModelEncodeService(pb2_grpc.ModelEncodeServicer):
 
 def serve():
     net = ModelGenerator().get_model()
+    print(net.summary())
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_ModelEncodeServicer_to_server(ModelEncodeService(net), server)
     server.add_insecure_port('[::]:8888')
