@@ -43,7 +43,7 @@ class ProtoDecoder:
                 dense_layer = encoded_layers.denseLayers.pop(0)
                 units = dense_layer.units.pop(0)
                 activation = dense_layer.activations.pop(0)
-                names = dense_layer.activations.pop(0)
+                names = dense_layer.names.pop(0)
                 print(f"DENSE LAYER: UNITS: {units}\nACTIVATION: {activation}\nNAMES: {names}")
                 print(units, activation, names)
                 decoded_layer = tf.keras.layers.Dense(units, activation=activation, name=names)
