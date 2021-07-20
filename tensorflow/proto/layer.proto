@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+message SequentialModelLayers {
+    repeated FlattenLayer flattenLayers = 1;
+     
+    repeated DenseLayer denseLayers = 2;
+
+    repeated DropoutLayer dropoutLayers = 3;
+
+    message Shape {
+        repeated int32 shape = 1;
+    }
+
+    message FlattenLayer {
+        repeated Shape shapes = 1;
+    }
+
+    message DenseLayer {
+        repeated int32 units = 1;
+        repeated string activations = 2;
+        repeated string names = 3;
+    }
+
+    message DropoutLayer {
+        repeated float ratio = 1;
+    }
+
+}
