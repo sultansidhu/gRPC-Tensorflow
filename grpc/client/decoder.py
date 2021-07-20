@@ -35,7 +35,7 @@ class ProtoDecoder:
 
             if layer_type == Layer.LayerType.FLATTEN:
                 flatten_layer = encoded_layers.flattenLayers.pop(0)
-                shape = flatten_layer.shapes.pop(0)
+                shape = flatten_layer.shapes.pop(0).shape
                 print(f"FLATTEN LAYER, SHAPE: {shape}")
                 decoded_layer = tf.keras.layers.Flatten(input_shape=tuple(shape))
 
