@@ -33,7 +33,7 @@ class ProtoEncoder:
             shape = layer_manager.Shape()
             layer_shape = list(layer.input_shape)
             print(f"LAYER shape is {layer_shape}")
-            shape.shape.extend(layer_shape)
+            shape.shape.extend(layer_shape[1:]) # todo: temporary hack
             flatten_layer.shapes.append(shape)
             layer_manager.flattenLayers.append(flatten_layer)
 
