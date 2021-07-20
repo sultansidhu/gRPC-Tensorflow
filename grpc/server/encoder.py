@@ -1,11 +1,8 @@
 """
 A model encoding file, that takes a keras Sequential model, and encodes it to protobuf format.
 """
-# the encoding functions by encoding the layers, sending the layers off to the other end, and decoding them there
-# once that is done, you create a list, and use the model creator class in model.py to create your model 
-# then on the server side, you write the model weights to a tempfile, send off that tempfile aftre reading its binary
-# and reconstitute the weights on the other end, and get them in the total model.
 
+from google.protobuf.message import EncodeError
 import tensorflow as tf
 from tensorflow_manager.proto.python.layer.layer_pb2 import Layer, SequentialModelLayers
 
@@ -41,7 +38,7 @@ class ProtoEncoder:
             flatten_layer.shapes.append(shape)
             layer_manager.flattenLayers.append(flatten_layer)
 
-        if isinstance(layer, tf.keras.layers.Dense):
+        elif isinstance(layer, tf.keras.layers.Dense):
             layer_type.type.append(Layer.LayerType.DENSE)
             dense_layer = layer_manager.DenseLayer()
             dense_layer.units.append(layer.units)
@@ -54,11 +51,15 @@ class ProtoEncoder:
                 dense_layer.names.append("")
             layer_manager.denseLayers.append(dense_layer)
 
-        if isinstance(layer, tf.keras.layers.Dropout):
+        elif isinstance(layer, tf.keras.layers.Dropout):
             layer_type.type.append(Layer.LayerType.DROPOUT)
             dropout_layer = layer_manager.DropoutLayer()
             dropout_layer.ratio.append(layer.rate)
             layer_manager.dropoutLayers.append(dropout_layer)
+        
+        else:
+            print(f"Error: Encoding for layer {layer} does not exist. Please add or consult the proto file.")
+            raise EncodeError
 
         return layer_type 
 
