@@ -1,11 +1,23 @@
 syntax = "proto3";
 
-message SequentialModelLayers {
-    repeated FlattenLayer flattenLayers = 1;
-     
-    repeated DenseLayer denseLayers = 2;
+message Layer {
+    enum LayerType {
+        FLATTEN = 0;
+        DENSE = 1;
+        DROPOUT = 2;
+    }
 
-    repeated DropoutLayer dropoutLayers = 3;
+    repeated LayerType type = 1;
+}
+
+message SequentialModelLayers {
+    repeated Layer layers = 1;
+
+    repeated FlattenLayer flattenLayers = 2;
+     
+    repeated DenseLayer denseLayers = 3;
+
+    repeated DropoutLayer dropoutLayers = 4;
 
     message Shape {
         repeated int32 shape = 1;
