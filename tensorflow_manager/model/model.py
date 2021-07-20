@@ -3,10 +3,10 @@ A python file that keeps the definition of a simple tensorflow model.
 """
 import tensorflow as tf
 
-mnist = tf.keras.datasets.mnist
+# mnist = tf.keras.datasets.mnist
 
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
-x_train, x_test = x_train / 255.0, x_test / 255.0
+# (x_train, y_train), (x_test, y_test) = mnist.load_data()
+# x_train, x_test = x_train / 255.0, x_test / 255.0
 
 class ModelGenerator:
     """
@@ -47,15 +47,15 @@ class ModelGenerator:
             exit(1)
         
 
-model = ModelGenerator().get_model()
+# model = ModelGenerator().get_model()
 
-predictions = model(x_train[:1]).numpy()
+# predictions = model(x_train[:1]).numpy()
 
-loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+# loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
-model.compile(optimizer='adam',
-              loss=loss_fn,
-              metrics=['accuracy'])
+# model.compile(optimizer='adam',
+#               loss=loss_fn,
+#               metrics=['accuracy'])
 
-print(model)
-print(dir(model))
+# print(model)
+# print(dir(model))
