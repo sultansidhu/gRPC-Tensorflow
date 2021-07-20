@@ -17,6 +17,15 @@ class ProtoEncoder:
         self.optim = optim
         self.metrics = metrics
 
+    def get_activation(self, layer: tf.keras.layers.Dense) -> str:
+        activations = tf.keras.activations.__dict__
+
+        for k in activations:
+            if layer.activation == activations[k]:
+                return k
+        print("Error: No corresponding activation found.")
+        exit(1)
+
     def encode_layer(self, layer, layer_manager) -> Layer:
         """
         Function for encoding an individual layer within the Tensorflow Keras model.
@@ -42,7 +51,8 @@ class ProtoEncoder:
             dense_layer = layer_manager.DenseLayer()
             print(layer.units, "DENSE")
             dense_layer.units.append(layer.units)
-            dense_layer.activations.append(layer.activation)
+            activation = self.get_activation(layer)
+            dense_layer.activations.append(activation)
             # we must make the following distinction because proto
             # expects a string
             if layer.name is not None:
