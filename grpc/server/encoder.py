@@ -30,7 +30,7 @@ class ProtoEncoder:
         if isinstance(layer, tf.keras.layers.Flatten):
             layer_type.type.append(Layer.LayerType.FLATTEN)
             flatten_layer = layer_manager.FlattenLayer()
-            shape = flatten_layer.Shape()
+            shape = layer_manager.Shape()
             layer_shape = list(layer.input_shape)
             shape.shape.extend(layer_shape)
             flatten_layer.shapes.append(shape)
