@@ -27,11 +27,11 @@ class ModelEncodeClient(object):
         # bind the client and the server
         self.stub = pb2_grpc.ModelEncodeStub(self.channel)
 
-    def get_url(self, message):
+    def get_url(self, ready):
         """
         Client function to call the rpc for GetServerResponse
         """
-        message = pb2.Request(message=message)
+        message = pb2.Request(ready=ready)
         response = self.stub.GetEncodedModel(message)
         encoded_model = response.model
         encoded_weights = response.weights
