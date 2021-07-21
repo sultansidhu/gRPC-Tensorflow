@@ -27,7 +27,17 @@ class ModelEncodeService(pb2_grpc.ModelEncodeServicer):
     def GetEncodedModel(self, request, context):
         start_time = time.time()
         encoded_model = self.encoder.encode_model()
-        result = {'model': encoded_model, 'received': True}
+        weights = self.encoder.encode_weights()
+        hyperparams = pb2.HyperParams()
+        hyperparams.loss = pb2.HyperParams.LossFunction.SparseCategoricalCE
+        hyperparams.fromLogits = True
+        filename = self.encoder.save_name
+        result = {
+            'model': encoded_model, 
+            'weights': weights, 
+            'hyperparams': hyperparams, 
+            'fileName': filename
+        }
         end_time = time.time()
         print(f"Time taken for returning response - {end_time - start_time}")
         return pb2.ModelResponse(**result)

@@ -32,9 +32,15 @@ class ModelEncodeClient(object):
         message = pb2.Request(message=message)
         response = self.stub.GetEncodedModel(message)
         encoded_model = response.model
+        encoded_weights = response.weights
         decoder = ProtoDecoder()
         model = decoder.decode_model(encoded_model)
-        return model
+        weighted_model = decoder.load_weights(
+            response.fileName,
+            model,
+            encoded_weights
+        )
+        return weighted_model
 
 
 
