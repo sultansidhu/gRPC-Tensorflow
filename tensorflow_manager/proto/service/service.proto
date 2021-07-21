@@ -7,10 +7,19 @@ service ModelEncode {
 }
 
 message Request{
-    string message = 1;
+    bool ready = 1;
+}
+
+message HyperParams {
+    enum LossFunction {
+        SparseCategoricalCE = 0;
+    }
+    LossFunction loss = 1;
+    bool fromLogits = 2;
 }
 
 message ModelResponse{
     bytes model = 1;
-    bool received = 2;
+    bytes weights = 2;
+    HyperParams hyperparams = 3;
 }

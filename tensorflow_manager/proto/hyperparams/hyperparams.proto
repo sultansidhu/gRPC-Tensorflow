@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-message HyperParams {
-    enum LossFunction {
-        SparseCategoricalCE = 0;
-    }
-    LossFunction loss = 1;
-    bool fromLogits = 2;
-}

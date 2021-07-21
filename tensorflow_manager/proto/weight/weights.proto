@@ -1,5 +1,0 @@
-syntax = "proto3";
-
-message Weights {
-    bytes weightBinary = 1;
-}
