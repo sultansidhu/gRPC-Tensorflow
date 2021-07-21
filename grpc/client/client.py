@@ -48,7 +48,7 @@ class ModelEncodeClient(object):
 
 if __name__ == '__main__':
     client = ModelEncodeClient()
-    decoded_model = client.get_url(message="") # empty message, since the server does not need it
+    decoded_model = client.get_url(ready=True) 
     print(decoded_model.summary())
 
     mnist = tf.keras.datasets.mnist
