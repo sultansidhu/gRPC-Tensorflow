@@ -27,11 +27,11 @@ class ModelEncodeClient(object):
         # bind the client and the server
         self.stub = pb2_grpc.ModelEncodeStub(self.channel)
 
-    def get_url(self, message):
+    def get_url(self, ready):
         """
         Client function to call the rpc for GetServerResponse
         """
-        message = pb2.Request(message=message)
+        message = pb2.Request(ready=ready)
         response = self.stub.GetEncodedModel(message)
         encoded_model = response.model
         encoded_weights = response.weights
@@ -48,7 +48,7 @@ class ModelEncodeClient(object):
 
 if __name__ == '__main__':
     client = ModelEncodeClient()
-    decoded_model = client.get_url(message="") # empty message, since the server does not need it
+    decoded_model = client.get_url(ready=True) 
     print(decoded_model.summary())
 
     mnist = tf.keras.datasets.mnist
