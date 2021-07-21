@@ -22,4 +22,5 @@ message ModelResponse{
     bytes model = 1;
     bytes weights = 2;
     HyperParams hyperparams = 3;
+    string fileName = 4;
 }

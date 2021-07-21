@@ -55,14 +55,15 @@ class ModelGenerator:
 # print(model)
 # print(dir(model))
 
-pretrained = ModelGenerator().get_model()
+if __name__ == "__main__":
+    pretrained = ModelGenerator().get_model()
 
-for w in pretrained.weights:
-    w.assign(tf.random.normal(w.shape))
+    for w in pretrained.weights:
+        w.assign(tf.random.normal(w.shape))
 
-pretrained.save_weights("pretrained_ckpt")
+    pretrained.save_weights("pretrained_ckpt")
 
-model = ModelGenerator().get_model()
+    model = ModelGenerator().get_model()
 
-model.load_weights("pretrained_ckpt")
+    model.load_weights("pretrained_ckpt")
 

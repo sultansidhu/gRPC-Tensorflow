@@ -4,6 +4,7 @@ A model encoding file, that takes a keras Sequential model, and encodes it to pr
 
 from google.protobuf.message import EncodeError
 import tensorflow as tf
+import os
 from tensorflow_manager.proto.python.layer.layer_pb2 import Layer, SequentialModelLayers
 
 class ProtoEncoder:
@@ -11,11 +12,14 @@ class ProtoEncoder:
         self, 
         model: tf.keras.models.Sequential,
         optim: str,
-        metrics: list
+        metrics: list,
+        save_name: str = "checkpoint.h5"
         ) -> None:
         self.model = model
         self.optim = optim
         self.metrics = metrics
+        self.save_name = save_name
+        assert save_name.endswith(".h5"), "Save format of the file must be .h5"
 
     def get_activation(self, layer: tf.keras.layers.Dense) -> str:
         activations = tf.keras.activations.__dict__
@@ -92,5 +96,15 @@ class ProtoEncoder:
         Returns:
             bytes: Returns a bytestring that encodes the model weights
         """
-        pass
+        print(f"Saving model in {self.save_name}...")
+        self.model.save_weights(self.save_name)
+        try:
+            with open(self.save_name, "rb") as fd:
+                weight_details = fd.read()
+        except Exception as e:
+            print(f"Error occurred when reading weights: {e}")
+        finally:
+            os.remove(self.save_name)
+        return weight_details
+        
 

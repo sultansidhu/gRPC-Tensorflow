@@ -4,6 +4,7 @@ and reconstructs it.
 """
 from google.protobuf.message import DecodeError
 import tensorflow as tf
+import os
 from tensorflow_manager.proto.python.layer.layer_pb2 import SequentialModelLayers, Layer
 
 class ProtoDecoder:
@@ -57,3 +58,36 @@ class ProtoDecoder:
             model_layers.append(decoded_layer)
         
         return tf.keras.models.Sequential(model_layers)
+    
+    def load_weights(
+        self, 
+        filename: str, 
+        model: tf.keras.models.Sequential, 
+        weight_str: bytes
+        ) -> tf.keras.models.Sequential:
+        """
+        Loads the weights to the decoded model after it has been reconstituted
+
+        Args:
+            filename (str): filename of the .hd5 weights file
+            model (tf.keras.models.Sequential): the reconstituted model, received over gRPC network
+            weight_str (bytes): the bytestring that includes the encoded weights for the model
+
+        Returns:
+            tf.keras.models.Sequential: model with the loaded weights
+        """
+        assert filename.endswith(".h5"), "Invalid save file extension. Must be a .h5 file."
+        try:
+            with open(filename, "wb") as fd:
+                fd.write(weight_str)
+        except Exception: 
+            print(f"Error writing the weight binaries to file.")
+
+        try: 
+            model.load_weights(filename)
+        except Exception as e:
+            print(f"Error loading model weights: {e}")
+        finally:
+            os.remove(filename)
+        return model
+        
