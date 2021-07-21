@@ -3,6 +3,7 @@
 import grpc
 
 from tensorflow_manager.proto.python.service import service_pb2 as tensorflow__manager_dot_proto_dot_service_dot_service__pb2
+
 class ModelEncodeStub(object):
     """Missing associated documentation comment in .proto file."""
 

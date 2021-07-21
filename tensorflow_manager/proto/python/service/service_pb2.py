@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n.tensorflow_manager/proto/service/service.proto\x12\x07service\"\x18\n\x07Request\x12\r\n\x05ready\x18\x01 \x01(\x08\"{\n\x0bHyperParams\x12/\n\x04loss\x18\x01 \x01(\x0e\x32!.service.HyperParams.LossFunction\x12\x12\n\nfromLogits\x18\x02 \x01(\x08\"\'\n\x0cLossFunction\x12\x17\n\x13SparseCategoricalCE\x10\x00\"Z\n\rModelResponse\x12\r\n\x05model\x18\x01 \x01(\x0c\x12\x0f\n\x07weights\x18\x02 \x01(\x0c\x12)\n\x0bhyperparams\x18\x03 \x01(\x0b\x32\x14.service.HyperParams2L\n\x0bModelEncode\x12=\n\x0fGetEncodedModel\x12\x10.service.Request\x1a\x16.service.ModelResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n.tensorflow_manager/proto/service/service.proto\x12\x07service\"\x18\n\x07Request\x12\r\n\x05ready\x18\x01 \x01(\x08\"{\n\x0bHyperParams\x12/\n\x04loss\x18\x01 \x01(\x0e\x32!.service.HyperParams.LossFunction\x12\x12\n\nfromLogits\x18\x02 \x01(\x08\"\'\n\x0cLossFunction\x12\x17\n\x13SparseCategoricalCE\x10\x00\"l\n\rModelResponse\x12\r\n\x05model\x18\x01 \x01(\x0c\x12\x0f\n\x07weights\x18\x02 \x01(\x0c\x12)\n\x0bhyperparams\x18\x03 \x01(\x0b\x32\x14.service.HyperParams\x12\x10\n\x08\x66ileName\x18\x04 \x01(\t2L\n\x0bModelEncode\x12=\n\x0fGetEncodedModel\x12\x10.service.Request\x1a\x16.service.ModelResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -146,6 +146,13 @@ _MODELRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fileName', full_name='service.ModelResponse.fileName', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -159,7 +166,7 @@ _MODELRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=210,
-  serialized_end=300,
+  serialized_end=318,
 )
 
 _HYPERPARAMS.fields_by_name['loss'].enum_type = _HYPERPARAMS_LOSSFUNCTION
@@ -200,8 +207,8 @@ _MODELENCODE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=302,
-  serialized_end=378,
+  serialized_start=320,
+  serialized_end=396,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetEncodedModel',
