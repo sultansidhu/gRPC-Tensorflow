@@ -7,5 +7,7 @@ This is an experimental repository investigating the possibility of transferring
 - Generate protobuf service for serving this model transfer (DONE)
 - Write a server file (DONE)
 - Write a client file (DONE)
+- Create proto encoding for model hyperparams (DONE)
+- Create proto encoding for model weights (DONE)
 - Write a weight encoder method within model encoder class
 - Write a weight decoder method within model decoder class
