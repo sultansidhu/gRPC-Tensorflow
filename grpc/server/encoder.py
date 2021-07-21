@@ -13,7 +13,7 @@ class ProtoEncoder:
         model: tf.keras.models.Sequential,
         optim: str,
         metrics: list,
-        save_name: str = "checkpoint.h5"
+        save_name: str = "weights.h5"
         ) -> None:
         self.model = model
         self.optim = optim
