@@ -29,7 +29,7 @@ class ModelEncodeService(pb2_grpc.ModelEncodeServicer):
 
     def GetEncodedModel(self, request, context):
         start_time = time.time()
-        encoded_model = self.encoder.encode_model()
+        encoded_model = self.encoder.encode_entire_model()
         weights = self.encoder.encode_weights()
         hyperparams = pb2.HyperParams()
         hyperparams.loss = pb2.HyperParams.LossFunction.SparseCategoricalCE

@@ -37,12 +37,7 @@ class ModelEncodeClient(object):
         encoded_weights = response.weights
         decoder = ProtoDecoder()
         model = decoder.decode_model(encoded_model)
-        weighted_model = decoder.load_weights(
-            response.fileName,
-            model,
-            encoded_weights
-        )
-        return weighted_model
+        return model
 
 
 
