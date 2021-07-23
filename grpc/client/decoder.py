@@ -29,10 +29,10 @@ class ProtoDecoder:
         """
         with open(f"{name}.zip", "wb") as fd:
             fd.write(model_str)
-        os.remove(f"{name}.zip")
         with ZipFile(f"{name}.zip", "r") as zipObj:
             # Extract all the contents of zip file in current directory
             zipObj.extractall(name)
+        os.remove(f"{name}.zip")
         model = tf.keras.models.load_model(name)
         shutil.rmtree(name)
         return model
