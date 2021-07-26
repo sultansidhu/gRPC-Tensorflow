@@ -33,7 +33,7 @@ class ModelEncodeService(pb2_grpc.ModelEncodeServicer):
         hyperparams = pb2.HyperParams()
         hyperparams.loss = pb2.HyperParams.LossFunction.SparseCategoricalCE
         hyperparams.fromLogits = True
-        filename = self.encoder.save_name
+        filename = f"{self.encoder.dir_name}/{self.encoder.save_name}"
         result = {
             'model': encoded_model, 
             'hyperparams': hyperparams, 
