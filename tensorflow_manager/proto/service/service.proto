@@ -20,7 +20,6 @@ message HyperParams {
 
 message ModelResponse{
     bytes model = 1;
-    bytes weights = 2;
-    HyperParams hyperparams = 3;
-    string fileName = 4;
+    HyperParams hyperparams = 2;
+    string fileName = 3;
 }

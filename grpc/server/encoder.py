@@ -6,7 +6,9 @@ from google.protobuf.message import EncodeError
 import tensorflow as tf
 import os
 import shutil
+
 from tensorflow_manager.proto.python.layer.layer_pb2 import Layer, SequentialModelLayers
+from tensorflow_manager.model.model import ModelGenerator
 
 class ProtoEncoder:
     def __init__(
@@ -21,6 +23,17 @@ class ProtoEncoder:
         self.metrics = metrics
         self.save_name = save_name
         assert not save_name.endswith(".h5"), "Save format of the file must not be .h5"
+    
+    def compile_model(self):
+        """
+        This function compiles the model, and returns it.
+        """
+        loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+        self.model.compile(
+            optimizer=self.optim,
+            loss=loss_fn,
+            metrics=self.metrics
+        )
 
     def encode_entire_model(self) -> bytes:
         """
@@ -29,6 +42,7 @@ class ProtoEncoder:
         Returns:
             bytes: protobuf encoded model
         """
+        #self.compile_model() # uncomment when compiling own model
         self.model.save(self.save_name)
         shutil.make_archive(self.save_name, "zip", self.save_name)
         with open(f"{self.save_name}.zip", "rb") as fd:
@@ -37,24 +51,7 @@ class ProtoEncoder:
         os.remove(f"{self.save_name}.zip")
         return encoded_model
 
-    def encode_weights(self) -> bytes:
-        """
-        A function that encodes the weights of the model into a protobuf format.
-
-        Returns:
-            bytes: Returns a bytestring that encodes the model weights
-        """
-        print(f"Saving model in {self.save_name}...")
-        self.model.save_weights(self.save_name)
-        try:
-            with open(f"{self.save_name}.h5", "w") as fd:
-                fd.write("haha")
-            with open(f"{self.save_name}.h5", "r") as fd:
-                weight_details = fd.read()
-        except Exception as e:
-            print(f"Error occurred when reading weights: {e}")
-        finally:
-            os.remove(f"{self.save_name}.h5")
-        return bytes(weight_details)
-        
-
+if __name__ == "__main__":
+    model = ModelGenerator().get_model()
+    encoder = ProtoEncoder(model, "adam", ["accuracy"])
+    print(encoder.encode_entire_model())[:100]

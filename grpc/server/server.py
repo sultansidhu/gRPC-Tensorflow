@@ -25,19 +25,17 @@ class ModelEncodeService(pb2_grpc.ModelEncodeServicer):
 
     def __init__(self, model, *args, **kwargs):
         self.model = model
-        self.encoder = ProtoEncoder(self.model, "adam", "accuracy")
+        self.encoder = ProtoEncoder(self.model, "adam", ["accuracy"])
 
     def GetEncodedModel(self, request, context):
         start_time = time.time()
         encoded_model = self.encoder.encode_entire_model()
-        weights = self.encoder.encode_weights()
         hyperparams = pb2.HyperParams()
         hyperparams.loss = pb2.HyperParams.LossFunction.SparseCategoricalCE
         hyperparams.fromLogits = True
         filename = self.encoder.save_name
         result = {
             'model': encoded_model, 
-            'weights': weights, 
             'hyperparams': hyperparams, 
             'fileName': filename
         }
