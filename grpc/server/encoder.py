@@ -47,12 +47,14 @@ class ProtoEncoder:
         print(f"Saving model in {self.save_name}...")
         self.model.save_weights(self.save_name)
         try:
-            with open(self.save_name, "rb") as fd:
+            with open(f"{self.save_name}.h5", "wb") as fd:
+                fd.write("haha")
+            with open(f"{self.save_name}.h5", "rb") as fd:
                 weight_details = fd.read()
         except Exception as e:
             print(f"Error occurred when reading weights: {e}")
         finally:
-            os.remove(self.save_name)
+            os.remove(f"{self.save_name}.h5")
         return weight_details
         
 
