@@ -2,8 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from service import service_pb2 as service_dot_service__pb2
-
+from tensorflow_manager.proto.python.service import service_pb2 as service_dot_service__pb2
 
 class ModelEncodeStub(object):
     """Missing associated documentation comment in .proto file."""
