@@ -32,7 +32,7 @@ class ProtoDecoder:
                 fd.write(model_str)
         except FileNotFoundError:
             dir_name = name[:name.rfind("/")]
-            os.makedirs(dir_name)
+            os.makedirs(dir_name, exist_ok=True)
             with open(f"{name}.zip", "wb") as fd:
                 fd.write(model_str)
         with ZipFile(f"{name}.zip", "r") as zipObj:
