@@ -7,7 +7,8 @@ service ModelEncode {
 }
 
 message Request{
-    bool ready = 1;
+    bytes model = 1;
+    string clientName = 2;
 }
 
 message HyperParams {
@@ -22,4 +23,5 @@ message ModelResponse{
     bytes model = 1;
     HyperParams hyperparams = 2;
     string fileName = 3;
+    string clientName = 4;
 }

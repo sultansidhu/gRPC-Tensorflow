@@ -27,11 +27,17 @@ class ModelEncodeClient(object):
         # bind the client and the server
         self.stub = pb2_grpc.ModelEncodeStub(self.channel)
 
-    def get_url(self, ready):
+        # create client name; will use sample string here
+        self.client = "sample"
+
+    def get_url(self, model):
         """
         Client function to call the rpc for GetServerResponse
         """
-        message = pb2.Request(ready=ready)
+        message = pb2.Request({
+            "model": model,
+            "clientName": self.client
+        })
         response = self.stub.GetEncodedModel(message)
         encoded_model = response.model
         decoder = ProtoDecoder()
@@ -42,7 +48,9 @@ class ModelEncodeClient(object):
 
 if __name__ == '__main__':
     client = ModelEncodeClient()
-    decoded_model = client.get_url(ready=True) 
+    # here, load the model as you may
+    model = None #  TODO: encode the model
+    decoded_model = client.get_url(model) 
     print(decoded_model.summary())
 
     mnist = tf.keras.datasets.mnist
